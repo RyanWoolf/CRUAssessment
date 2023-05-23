@@ -20,6 +20,13 @@ function App() {
     setAlignment(newAlignment);
   };
 
+  const handleAddWeek = () => {
+    setWeek(week + 1)
+  }
+  const handleMinusWeek = () => {
+    setWeek(week - 1)
+  }
+
 
   return (
     <>
@@ -32,11 +39,11 @@ function App() {
             <h2 className="font-semibold text-3xl text-center">2018</h2>
             <div>
               <div className="flex justify-center items-center">
-                <IconButton aria-label="next" size="medium" color="primary">
+                <IconButton aria-label="next" size="medium" color="primary" onClick={handleMinusWeek}>
                   <NavigateBefore fontSize="inherit"></NavigateBefore>
                 </IconButton>
                   <p className="text-sm">{alignment === 'week' ? `Week ${week}` : `${day}`}</p>
-                <IconButton aria-label="previous" size="medium" color="primary">
+                <IconButton aria-label="previous" size="medium" color="primary" onClick={handleAddWeek}>
                   <NavigateNext fontSize="inherit"></NavigateNext>
                 </IconButton>
               </div>
