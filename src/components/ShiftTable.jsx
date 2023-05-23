@@ -5,7 +5,27 @@ import Chart from 'react-apexcharts';
 import shiftsData from '../../public/files/shifts.json'
 import employeesList from '../../public/files/employees.json'
 
-const ShiftTable = ({ staffId, week }) => {
+function getWeekDateRange(year, weekNumber) {
+  const startDate = new Date(year, 0, (weekNumber - 1) * 7 + 1);
+  const endDate = new Date(year, 0, (weekNumber - 1) * 7 + 7);
+
+  // Adjust the start date to the nearest Sunday
+  startDate.setDate(startDate.getDate() - startDate.getDay());
+
+  // Adjust the end date to the nearest Saturday
+  endDate.setDate(endDate.getDate() + (endDate.getDay()));
+
+  // Set start time to midnight (00:00:00)
+  startDate.setHours(0, 0, 0, 0);
+
+  // Set end time to midnight (00:00:00) of the next day
+  endDate.setHours(0, 0, 0, 0);
+  endDate.setDate(endDate.getDate() + 1);
+
+return { startDate, endDate };
+}
+
+const ShiftTable = ({ alignment, staffId, week, day }) => {
   const [series, setSeries] = useState(null);
   const [loading, setLoading] = useState(true)
 
@@ -75,7 +95,10 @@ const ShiftTable = ({ staffId, week }) => {
       type: 'rangeBar',
       toolbar: {
         show: false,
-        autoSelected: 'pan'
+        autoSelected: 'pan',
+        tools: {
+          pan: false,
+        }
       },
     },
     plotOptions: {
@@ -110,8 +133,9 @@ const ShiftTable = ({ staffId, week }) => {
           // colors: ['#ffffff']
         }
       },
-      min: week || new Date(shiftsData[0].start_time).getTime(),
-      // max: new Date(shiftsData[20].start_time).getTime(),
+      min: alignment==='week' ? getWeekDateRange(2018, week).startDate.getTime() : day,
+      // min: target.getTime() | new Date(shiftsData[0].start_time).getTime(),
+      max: alignment==='week' ? getWeekDateRange(2018, week).endDate.getTime() : day+86400000
     },
     colors: [
       "#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0",
