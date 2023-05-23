@@ -95,7 +95,10 @@ const ShiftTable = ({ alignment, staffId, week, day }) => {
       type: 'rangeBar',
       toolbar: {
         show: false,
-        autoSelected: 'pan'
+        autoSelected: 'pan',
+        tools: {
+          pan: false,
+        }
       },
     },
     plotOptions: {
