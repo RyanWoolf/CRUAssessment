@@ -10,6 +10,7 @@ import ShiftTable from './components/ShiftTable'
 
 function App() {
   const [week, setWeek] = useState(25)
+  const [day, setDay] = useState('18 July')
   const [alignment, setAlignment] = useState('week');
   const [staff, setStaff] = useState('')
 
@@ -22,7 +23,7 @@ function App() {
 
   return (
     <>
-      <article className="w-[80%] h-full m-auto pt-24 drop-shadow-2xl">
+      <article className="w-[80%] drop-shadow-2xl">
 
         {/* Header */}
         <section className="bg-slate-700 text-white flex justify-between items-center px-20 py-5 rounded-t-xl">
@@ -34,7 +35,7 @@ function App() {
                 <IconButton aria-label="next" size="medium" color="primary">
                   <NavigateBefore fontSize="inherit"></NavigateBefore>
                 </IconButton>
-                  <p className="text-sm">{alignment === 'week' ? `Week ${week}` : '18 July - 25 July'}</p>
+                  <p className="text-sm">{alignment === 'week' ? `Week ${week}` : `${day}`}</p>
                 <IconButton aria-label="previous" size="medium" color="primary">
                   <NavigateNext fontSize="inherit"></NavigateNext>
                 </IconButton>
@@ -59,7 +60,7 @@ function App() {
 
         {/* Shift Table */}
         <section className="px-10 py-5 bg-slate-300 rounded-b-xl">
-          <ShiftTable></ShiftTable>
+          <ShiftTable week={week} day={day}></ShiftTable>
         </section>
 
       </article>
