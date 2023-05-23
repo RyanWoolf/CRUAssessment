@@ -25,10 +25,10 @@ function getWeekDateRange(year, weekNumber) {
 return { startDate, endDate };
 }
 
-const ShiftTable = ({ staffId, week, day }) => {
+const ShiftTable = ({ alignment, staffId, week, day }) => {
   const [series, setSeries] = useState(null);
   const [loading, setLoading] = useState(true)
-
+  
   useEffect(() => {
     // Fetching data from DB in case of real db
     fetch('../../public/files/shifts.json')
@@ -130,7 +130,7 @@ const ShiftTable = ({ staffId, week, day }) => {
           // colors: ['#ffffff']
         }
       },
-      min: getWeekDateRange(2018, week).startDate.getTime(),
+      min: alignment==='week' ? getWeekDateRange(2018, week).startDate.getTime() : '',
       // min: target.getTime() | new Date(shiftsData[0].start_time).getTime(),
       max: getWeekDateRange(2018, week).endDate.getTime()
     },

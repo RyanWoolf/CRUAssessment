@@ -16,11 +16,8 @@ function App() {
 
   const staffList = []
 
-  const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
-  };
-
-  const handleAddWeek = () => {
+  console.log(new Date('18 July').getDate())
+  const handleAddWeek = (e) => {
     setWeek(week + 1)
   }
   const handleMinusWeek = () => {
@@ -39,11 +36,11 @@ function App() {
             <h2 className="font-semibold text-3xl text-center">2018</h2>
             <div>
               <div className="flex justify-center items-center">
-                <IconButton aria-label="next" size="medium" color="primary" onClick={handleMinusWeek}>
+                <IconButton aria-label="next" size="medium" color="primary" value='1' onClick={handleMinusWeek}>
                   <NavigateBefore fontSize="inherit"></NavigateBefore>
                 </IconButton>
                   <p className="text-sm">{alignment === 'week' ? `Week ${week}` : `${day}`}</p>
-                <IconButton aria-label="previous" size="medium" color="primary" onClick={handleAddWeek}>
+                <IconButton aria-label="previous" size="medium" color="primary" value='1' onClick={handleAddWeek}>
                   <NavigateNext fontSize="inherit"></NavigateNext>
                 </IconButton>
               </div>
@@ -67,7 +64,7 @@ function App() {
 
         {/* Shift Table */}
         <section className="px-10 py-5 bg-slate-300 rounded-b-xl">
-          <ShiftTable week={week} day={day}></ShiftTable>
+          <ShiftTable week={week} day={day} alignment={alignment}></ShiftTable>
         </section>
 
       </article>
