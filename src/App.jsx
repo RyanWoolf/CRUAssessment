@@ -4,20 +4,29 @@ import IconButton from '@mui/material/IconButton'
 import NavigateNext from '@mui/icons-material/NavigateNext'
 import NavigateBefore from '@mui/icons-material/NavigateBefore'
 import Button from '@mui/material/Button';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ShiftTable from './components/ShiftTable'
 
 function App() {
   const [week, setWeek] = useState(25)
-  const [day, setDay] = useState('18 July')
+  const [day, setDay] = useState(new Date(new Date('2018 19 Jun').setUTCHours(0,0,0,0)).getTime())
   const [alignment, setAlignment] = useState('week');
   const [staff, setStaff] = useState('')
-
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', ]
   const staffList = []
 
-  console.log(new Date('18 July').getDate())
-  const handleAddWeek = (e) => {
+  // console.log(new Date('18 July').getDate())
+  // console.log(new Date(((new Date('18 July').getTime())-3600)).getDate())
+
+  const handleAddDay = () => {
+    const nextDay = new Date(day + 86400000).setUTCHours(0, 0, 0, 0)
+    setDay(nextDay)
+  }
+  const handleMinusDay = () => {
+    const previousDay = new Date(day - 86400000).setUTCHours(0, 0, 0, 0)
+    setDay(previousDay)
+  }
+
+  const handleAddWeek = () => {
     setWeek(week + 1)
   }
   const handleMinusWeek = () => {
@@ -36,11 +45,11 @@ function App() {
             <h2 className="font-semibold text-3xl text-center">2018</h2>
             <div>
               <div className="flex justify-center items-center">
-                <IconButton aria-label="next" size="medium" color="primary" value='1' onClick={handleMinusWeek}>
+                <IconButton aria-label="next" size="medium" color="primary" value='1' onClick={alignment === 'week' ? handleMinusWeek : handleMinusDay}>
                   <NavigateBefore fontSize="inherit"></NavigateBefore>
                 </IconButton>
-                  <p className="text-sm">{alignment === 'week' ? `Week ${week}` : `${day}`}</p>
-                <IconButton aria-label="previous" size="medium" color="primary" value='1' onClick={handleAddWeek}>
+                  <p className="text-sm w-[57px] text-center">{alignment === 'week' ? `Week ${week}` : `${new Date(day).getDate()} ${months[new Date(day).getMonth()]}`}</p>
+                <IconButton aria-label="previous" size="medium" color="primary" value='1' onClick={alignment === 'week' ? handleAddWeek : handleAddDay}>
                   <NavigateNext fontSize="inherit"></NavigateNext>
                 </IconButton>
               </div>

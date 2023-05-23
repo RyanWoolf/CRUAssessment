@@ -28,7 +28,7 @@ return { startDate, endDate };
 const ShiftTable = ({ alignment, staffId, week, day }) => {
   const [series, setSeries] = useState(null);
   const [loading, setLoading] = useState(true)
-  
+
   useEffect(() => {
     // Fetching data from DB in case of real db
     fetch('../../public/files/shifts.json')
@@ -130,9 +130,9 @@ const ShiftTable = ({ alignment, staffId, week, day }) => {
           // colors: ['#ffffff']
         }
       },
-      min: alignment==='week' ? getWeekDateRange(2018, week).startDate.getTime() : '',
+      min: alignment==='week' ? getWeekDateRange(2018, week).startDate.getTime() : day,
       // min: target.getTime() | new Date(shiftsData[0].start_time).getTime(),
-      max: getWeekDateRange(2018, week).endDate.getTime()
+      max: alignment==='week' ? getWeekDateRange(2018, week).endDate.getTime() : day+86400000
     },
     colors: [
       "#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0",
